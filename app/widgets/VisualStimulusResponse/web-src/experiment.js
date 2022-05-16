@@ -66,7 +66,7 @@ function buildTimeline() {
         return '<div class="mindlogger-message">Respond faster</div>';
       }
       if (last.correct === true) {
-        return '<div class="mindlogger-message correct">Correct!</div>';
+        return '<div class="mindlogger-message correct">1111Correct!</div>';
       }
       return '<div class="mindlogger-message incorrect">Incorrect</div>';
     },

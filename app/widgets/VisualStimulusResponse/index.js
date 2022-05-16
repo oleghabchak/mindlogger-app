@@ -1,10 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { View, Platform, ActivityIndicator } from 'react-native';
+import { Text, View, Platform, ActivityIndicator, NativeModules, TouchableOpacity } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { sendData } from "../../services/socket";
 
 const htmlSource = require('./visual-stimulus-response.html');
+
+const HelloWorld = NativeModules.HelloWorldModule;
 
 export const VisualStimulusResponse = ({ onChange, config, isCurrent, appletId }) => {
   const [tryIndex, setTryIndex] = useState(1);
@@ -123,6 +125,17 @@ export const VisualStimulusResponse = ({ onChange, config, isCurrent, appletId }
           }
         }}
       />
+      <TouchableOpacity onPress={()=>{
+          if(Platform.OS == "android"){
+            NativeModules.HelloWorldModule.ShowMessage("This is first time we are creating bridge. :)", 5000);
+          }
+          else if(Platform.OS == "ios"){
+            NativeModules.HelloWorld.ShowMessage("Awesome! its working!", 3);
+          }
+        }}>
+          <Text>Click Me!</Text>
+          <Text>PRESSS ME and see SWIFT Message</Text>
+        </TouchableOpacity>
 
       {
         loading && (
