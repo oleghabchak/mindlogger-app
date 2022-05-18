@@ -15,53 +15,53 @@ export const VisualStimulusResponse = ({ onChange, config, isCurrent, appletId }
   const webView = useRef();
 
   // Prepare config data for injecting into the WebView
-  const trials = config.trials.map(trial => ({
-    stimulus: {
-      en: trial.image
-    },
-    choices: trial.valueConstraints.itemList,
-    correctChoice: typeof trial.value === 'undefined' ? -1 : trial.value,
-    weight: typeof trial.weight === 'undefined' ? 1 : trial.weight,
-  }));
+  // const trials = config.trials.map(trial => ({
+  //   stimulus: {
+  //     en: trial.image
+  //   },
+  //   choices: trial.valueConstraints.itemList,
+  //   correctChoice: typeof trial.value === 'undefined' ? -1 : trial.value,
+  //   weight: typeof trial.weight === 'undefined' ? 1 : trial.weight,
+  // }));
 
-  const continueText = [
-    `Press the button below to ${config.lastScreen ? 'finish' : 'continue'}.`
-  ];
-  const restartText = [
-    'Remember to respond only to the central arrow.',
-    'Press the button below to end current block and restart.'
-  ];
+  // const continueText = [
+  //   `Press the button below to ${config.lastScreen ? 'finish' : 'continue'}.`
+  // ];
+  // const restartText = [
+  //   'Remember to respond only to the central arrow.',
+  //   'Press the button below to end current block and restart.'
+  // ];
 
-  const configObj = {
-    trials,
-    showFixation: config.showFixation !== false,
-    showFeedback: config.showFeedback !== false,
-    showResults: config.showResults !== false,
-    trialDuration: config.trialDuration || 1500,
-    samplingMethod: config.samplingMethod,
-    samplingSize: config.sampleSize,
-    buttonLabel: config.nextButton || 'Finish',
-    minimumAccuracy: tryIndex < config.maxRetryCount && config.minimumAccuracy || 0,
-    continueText,
-    restartText: tryIndex < config.maxRetryCount ? restartText : continueText
-  };
-  const screenCountPerTrial = configObj.showFeedback ? 3 : 2;
+  // const configObj = {
+  //   trials,
+  //   showFixation: config.showFixation !== false,
+  //   showFeedback: config.showFeedback !== false,
+  //   showResults: config.showResults !== false,
+  //   trialDuration: config.trialDuration || 1500,
+  //   samplingMethod: config.samplingMethod,
+  //   samplingSize: config.sampleSize,
+  //   buttonLabel: config.nextButton || 'Finish',
+  //   minimumAccuracy: tryIndex < config.maxRetryCount && config.minimumAccuracy || 0,
+  //   continueText,
+  //   restartText: tryIndex < config.maxRetryCount ? restartText : continueText
+  // };
+  // const screenCountPerTrial = configObj.showFeedback ? 3 : 2;
 
-  const injectConfig = `
-    window.CONFIG = ${JSON.stringify(configObj)};
-    start();
-  `;
+  // const injectConfig = `
+  //   window.CONFIG = ${JSON.stringify(configObj)};
+  //   start();
+  // `;
 
   const source = Platform.select({
     ios: htmlSource,
     android: { uri: 'file:///android_asset/html/visual-stimulus-response.html' },
   });
 
-  useEffect(() => {
-    if (isCurrent) {
-      webView.current.injectJavaScript(injectConfig);
-    }
-  }, [isCurrent])
+  // useEffect(() => {
+  //   if (isCurrent) {
+  //     webView.current.injectJavaScript(injectConfig);
+  //   }
+  // }, [isCurrent])
 
   const parseResponse = (record) => ({
     trial_index: Math.ceil((record.trial_index + 1) / screenCountPerTrial),
@@ -82,7 +82,9 @@ export const VisualStimulusResponse = ({ onChange, config, isCurrent, appletId }
         position: 'relative'
       }}
     >
-      <WebView
+      
+
+      {/* <WebView
         ref={(ref) => webView.current = ref}
         style={{ flex: 1, height: '100%' }}
         onLoad={() => setLoading(false)}
@@ -124,21 +126,10 @@ export const VisualStimulusResponse = ({ onChange, config, isCurrent, appletId }
             }, 0)
           }
         }}
-      />
-      <TouchableOpacity onPress={()=>{
-          if(Platform.OS == "android"){
-            NativeModules.HelloWorldModule.ShowMessage("This is first time we are creating bridge. :)", 5000);
-          }
-          else if(Platform.OS == "ios"){
-            NativeModules.HelloWorld.ShowMessage("Awesome! its working!", 3);
-          }
-        }}>
-          <Text>Click Me!</Text>
-          <Text>PRESSS ME and see SWIFT Message</Text>
-        </TouchableOpacity>
+      />  */}
 
       {
-        loading && (
+         
           <View
             style={{
               backgroundColor: 'white',
@@ -150,9 +141,22 @@ export const VisualStimulusResponse = ({ onChange, config, isCurrent, appletId }
               justifyContent: 'center'
             }}
           >
-            <ActivityIndicator size="large" />
+            {/* <ActivityIndicator size="large" /> */}
+                  <TouchableOpacity onPress={()=>{
+                    if(Platform.OS == "android"){
+                      NativeModules.HelloWorldModule.ShowMessage("This is first time we are creating bridge. :)", 5000);
+                    }
+                    else if(Platform.OS == "ios"){
+                      NativeModules.HelloWorld.ShowMessage("Awesome! its working!", 3000);
+                    }
+                  }}> 
+                    <Text>Click Me!</Text>
+                    <Text>PRESSS ME and see SWIFT Message</Text>
+                    <Text>PRESSS ME and see SWIFT Message</Text>
+                    <Text>PRESSS ME and see SWIFT Message</Text>
+                  </TouchableOpacity>
           </View>
-        ) || <></>
+        
       }
     </View>
   );
