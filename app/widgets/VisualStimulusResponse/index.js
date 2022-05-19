@@ -75,14 +75,37 @@ export const VisualStimulusResponse = ({ onChange, config, isCurrent, appletId }
     tag: record.tag,
   })
 
+const onPress = () => {
+  
+    if(Platform.OS == "android"){
+      NativeModules.HelloWorldModule.ShowMessage("This is first time we are creating bridge. :)", 5);
+    }
+    else if(Platform.OS == "ios"){
+      NativeModules.HelloWorld.ShowMessage("This is first time we are creating bridge. :)", 1);
+    
+  }
+}
+onPress();
+
   return (
     <View
       style={{
-        height: '100%',
-        position: 'relative'
+        height: '50%',
+        position: 'relative',
+        backgroundColor: 'red',
+        width: '50%',
+        height: '50%',
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
       }}
     >
-      
+      <TouchableOpacity onPress={onPress}> 
+        <Text>Click Me!</Text>
+        <Text>PRESSS ME and see SWIFT Message</Text>
+        <Text>PRESSS ME and see SWIFT Message</Text>
+        <Text>PRESSS ME and see SWIFT Message</Text>
+      </TouchableOpacity>
 
       {/* <WebView
         ref={(ref) => webView.current = ref}
@@ -130,32 +153,19 @@ export const VisualStimulusResponse = ({ onChange, config, isCurrent, appletId }
 
       {
          
-          <View
-            style={{
-              backgroundColor: 'white',
-              width: '100%',
-              height: '100%',
-              flex: 1,
-              position: 'absolute',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
-          >
-            {/* <ActivityIndicator size="large" /> */}
-                  <TouchableOpacity onPress={()=>{
-                    if(Platform.OS == "android"){
-                      NativeModules.HelloWorldModule.ShowMessage("This is first time we are creating bridge. :)", 5000);
-                    }
-                    else if(Platform.OS == "ios"){
-                      NativeModules.HelloWorld.ShowMessage("Awesome! its working!", 3000);
-                    }
-                  }}> 
-                    <Text>Click Me!</Text>
-                    <Text>PRESSS ME and see SWIFT Message</Text>
-                    <Text>PRESSS ME and see SWIFT Message</Text>
-                    <Text>PRESSS ME and see SWIFT Message</Text>
-                  </TouchableOpacity>
-          </View>
+          // <View
+          //   style={{
+          //     backgroundColor: 'red',
+          //     width: '100%',
+          //     height: '100%',
+          //     flex: 1,
+          //     alignItems: 'center',
+          //     justifyContent: 'center'
+          //   }}
+          // >
+          
+                  
+          // </View>
         
       }
     </View>

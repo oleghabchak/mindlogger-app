@@ -12,3 +12,7 @@
 @interface RCT_EXTERN_MODULE(HelloWorld, NSObject)
 RCT_EXTERN_METHOD(ShowMessage:(NSString *)message duration:(double *)duration)
 @end
+
+//@interface RCT_EXTERN_MODULE(HelloWorld, NSObject)
+//RCT_EXTERN_METHOD(view:(NSString *)callback)
+//@end

@@ -21,10 +21,16 @@ class HelloWorld: NSObject, RCTBridgeModule{
     return true;
   }
   
+  @objc
+  func view() -> UIView {
+    let view = UIView()
+    view.backgroundColor = .yellow
+    return view
+  }
   
   @objc
   func ShowMessage(_ message:NSString, duration:Double) -> Void {
-    let alert = UIAlertController(title:nil, message: "swift HelloWorld777" as String, preferredStyle: .alert);
+    let alert = UIAlertController(title:nil, message: message as String, preferredStyle: .alert);
     let seconds:Double = duration;
     alert.view.backgroundColor = .red
     alert.view.alpha = 0.5
