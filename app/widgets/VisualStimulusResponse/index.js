@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Text, View, Platform, ActivityIndicator, NativeModules, TouchableOpacity } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { sendData } from "../../services/socket";
+import CounterView from './CounterView';
 
 const htmlSource = require('./visual-stimulus-response.html');
 
@@ -85,16 +86,15 @@ const onPress = () => {
     
   }
 }
-onPress();
+// onPress();
 
   return (
     <View
       style={{
-        height: '50%',
         position: 'relative',
         backgroundColor: 'red',
-        width: '50%',
-        height: '50%',
+        width: '70%',
+        height: 40,
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center'
@@ -106,7 +106,7 @@ onPress();
         <Text>PRESSS ME and see SWIFT Message</Text>
         <Text>PRESSS ME and see SWIFT Message</Text>
       </TouchableOpacity>
-
+      {/* <CounterView /> */}
       {/* <WebView
         ref={(ref) => webView.current = ref}
         style={{ flex: 1, height: '100%' }}
