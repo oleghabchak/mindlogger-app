@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Text, View, Platform, ActivityIndicator, NativeModules, TouchableOpacity } from 'react-native';
+import { Text, View, Platform, ActivityIndicator,StyleSheet, NativeModules, TouchableOpacity } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { sendData } from "../../services/socket";
 import CounterView from './CounterView';
@@ -13,6 +13,7 @@ export const VisualStimulusResponse = ({ onChange, config, isCurrent, appletId }
   const [tryIndex, setTryIndex] = useState(1);
   const [responses, setResponses] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [count, setCount] = useState(0)
   const webView = useRef();
 
   // Prepare config data for injecting into the WebView
@@ -64,6 +65,8 @@ export const VisualStimulusResponse = ({ onChange, config, isCurrent, appletId }
   //   }
   // }, [isCurrent])
 
+  
+
   const parseResponse = (record) => ({
     trial_index: Math.ceil((record.trial_index + 1) / screenCountPerTrial),
     duration: record.rt,
@@ -102,10 +105,15 @@ const onPress = () => {
     >
       <TouchableOpacity onPress={onPress}> 
         <Text>Click Me!</Text>
-        <Text>PRESSS ME and see SWIFT Message</Text>
-        <Text>PRESSS ME and see SWIFT Message</Text>
-        <Text>PRESSS ME and see SWIFT Message</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+          style={[styles.wrapper, styles.border]}
+          onPress={() => setCount(count + 1)}
+        >
+          <Text style={styles.button}>
+            {count}
+          </Text>
+        </TouchableOpacity>
       {/* <CounterView /> */}
       {/* <WebView
         ref={(ref) => webView.current = ref}
@@ -171,6 +179,21 @@ const onPress = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1, alignItems: "stretch"
+  },
+  wrapper: {
+    flex: 1, alignItems: "center", justifyContent: "center"
+  },
+  border: {
+    borderColor: "#eee", borderBottomWidth: 1
+  },
+  button: {
+    fontSize: 50, color: "orange"
+  }
+});
 
 VisualStimulusResponse.propTypes = {
   config: PropTypes.shape({
